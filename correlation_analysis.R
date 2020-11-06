@@ -53,15 +53,26 @@ chart.Correlation(correlation, histogram=TRUE, method=c("pearson"), pch=19)
 ##for loop for correlation tests. does not work yet
 
 for (i in 1:length(trans.numerical.vars)) {
-  a <- cor.test(trans.numerical.vars$`AhR BEQ (ng TCDD/g)`, trans.numerical.vars[,i])
+  a <- cor.test(trans.numerical.vars$`AhR BEQ (ng TCDD/g)`, trans.numerical.vars[,i], method=c("pearson"), use = "complete.obs")
   print(paste(colnames(trans.numerical.vars)[i], " est:", a$estimate, " p=value:", a$p.value))
 }
 
 ##for loop to plot all congeners
 
-for(i in 2:ncol(data)) {                              # ggplot within for-loop
-  ggplot(data, aes(x = x, y = data[ , i])) +
-    geom_point()
+for(i in 9:length(PAH_Data)) {                              # ggplot within for-loop
+  ggplot(PAH_Data, aes(x = AhR_BEQ_ng_TCDD_g, y = PAH_Data[ , i])) +
+    geom_point(size=3, aes(colour=Stratum, shape=Stratum))+
+    geom_smooth(method = "lm", colour="black", lwd=0.5) +
+    ylim(0,10) +
+    ylab ("PCB118") +
+    theme_classic() +
+    theme(legend.position = "none") + 
+    theme(axis.title.x=element_blank(),
+          axis.text.y = element_text(size=12),
+          axis.title.y = element_text(size=12),
+          axis.text.x=element_blank(),
+          axis.ticks.x=element_blank())
   Sys.sleep(2)
 }
+
 
