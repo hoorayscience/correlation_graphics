@@ -78,13 +78,16 @@ for(i in 9:length(PAH_Data)) {                              # ggplot within for-
 #maual ggplot instead of loop ): I got a deadline
 Total_PAHs_AhR_graph <- ggplot(PAH_Data, aes(x=AhR_BEQ_ng_TCDD_g, y=Total_PAHs)) +
   geom_point(size=3, aes(colour=Stratum, shape=Stratum)) +
-  geom_smooth(method = "lm", colour="black", lwd=0.5) +
-  ylab ("Total PAH") +
+  geom_smooth(method = "lm", colour="black", lwd=1, se=FALSE) +
+  ylab ("Total PAHs") +
   xlab("AhR BEQ (ng TCDD/g)" )+
   theme_classic() +
-  theme(legend.position = "none") + 
-  theme(axis.text = element_text(size=12),
-        axis.title = element_text(size=12))
+  theme(legend.position = "top") +
+  theme(axis.text = element_text(size=15),
+        axis.title = element_text(size=15),
+        legend.title = element_text(size=14),
+        legend.text = element_text(size=13))+
+  theme(legend.background = element_rect(size=0.5, linetype="solid", color="black"))
 
 Total_PAHs_AhR_graph
 
